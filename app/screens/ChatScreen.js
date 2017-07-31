@@ -78,11 +78,12 @@ function MessageObj(message, id) {
 }
 
 function Instance(instanceText) {
-  if (instanceText=="Hello" || instanceText=="Hi" || instanceText=="Wassup" || instanceText=="Hey") {
-    returnMessage = "Hello"
+  $Hello = ["Hello","Hi","Wassup","Hey"];
+  if ($Hello.indexOf(instanceText) > -1) {
+    returnMessage = $Hello[Math.floor(Math.random() * $Hello.length)]
   }
   else {
-    returnMessage = "I\'m sorry, I couldn't understand the message"
+    returnMessage = "I\'m sorry, I couldn't understand the message."
   }
 
 
