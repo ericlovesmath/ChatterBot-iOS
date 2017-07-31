@@ -32,12 +32,13 @@ class ChatScreen extends React.Component {
     const {text} = response;
     const messages = this.state.messages.slice();
 ////////////////////////////////////////////////////////////////////////////////////////////////
-    if ((text=="Hi") || (text=="Hello")) {
-      messages.unshift(MessageObj("WASSSUUUPPP", ++this.id));
-    }
-    else {
-      messages.unshift(MessageObj("sAy sumthin elsh m8", ++this.id));
-    }
+    messages.unshift(MessageObj(Instance(text), ++this.id));
+    //if ((text=="Hi") || (text=="Hello")) {
+    //  messages.unshift(MessageObj("Hello!", ++this.id));
+    //}
+    //else {
+      //messages.unshift(MessageObj("I'm sorry, I couldn't understand the message", ++this.id));
+    //}
 ////////////////////////////////////////////////////////////////////////////////////////////////
     this.setState({messages});
   }
@@ -72,7 +73,20 @@ function MessageObj(message, id) {
             _id: 2,
             name: 'React Native',
             avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-      };
+        },
+  };
 }
-export default ChatScreen;
+
+function Instance(instanceText) {
+  if (instanceText=="Hello" || instanceText=="Hi" || instanceText=="Wassup" || instanceText=="Hey") {
+    returnMessage = "Hello"
+  }
+  else {
+    returnMessage = "I\'m sorry, I couldn't understand the message"
+  }
+
+
+
+  return returnMessage;
+}
+export default ChatScreen; 
