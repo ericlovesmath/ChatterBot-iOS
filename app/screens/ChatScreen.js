@@ -32,7 +32,7 @@ class ChatScreen extends React.Component {
     const {text} = response;
     const messages = this.state.messages.slice();
 ////////////////////////////////////////////////////////////////////////////////////////////////
-    messages.unshift(MessageObj(Instance(text), ++this.id));
+    messages.unshift(MessageObj(CalcInstance(text), ++this.id));
     //if ((text=="Hi") || (text=="Hello")) {
     //  messages.unshift(MessageObj("Hello!", ++this.id));
     //}
@@ -77,17 +77,24 @@ function MessageObj(message, id) {
   };
 }
 
-function Instance(instanceText) {
-  $Hello = ["Hello","Hi","Wassup","Hey"];
-  if ($Hello.indexOf(instanceText) > -1) {
-    returnMessage = $Hello[Math.floor(Math.random() * $Hello.length)]
+function CalcInstance(instanceText) {
+  let returnMessage = null;
+  /////////////////////////////////////
+  let $Hello = ["Hello","Hi","Wassup","Hey"];
+  let allInstances = [$Hello];
+  /////////////////////////////////////
+  for (let i = 0; i < allInstances.length; i++) {
+    let instance = allInstances[i];
+    console.log(instance);
+    console.log(instanceText);
+    if (instance.indexOf(instanceText) > -1) {
+      returnMessage = instance[Math.floor(Math.random() * instance.length)];
+      console.log("YA GOT IT");
+    }
   }
-  else {
+  if (returnMessage==null) {
     returnMessage = "I\'m sorry, I couldn't understand the message."
   }
-
-
-
   return returnMessage;
 }
 export default ChatScreen; 
