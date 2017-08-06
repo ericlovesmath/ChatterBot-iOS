@@ -28,7 +28,7 @@ class InformationScreen extends React.Component {
           />
           <SettingsList.Item
             title='Add Private Instance'
-            onPress={() => navigate('Information')}
+            onPress={() => navigate('PrivateInstance')}
           />
           <SettingsList.Item
             title='Add Public Instance'

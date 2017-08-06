@@ -9,6 +9,7 @@ class ChatScreen extends React.Component {
     this.id = 1;
   }
   static navigationOptions = ({ navigation }) => ({
+    headerLeft: null,
     headerRight: <Button
         title="ⓘ  "
         onPress={() =>
