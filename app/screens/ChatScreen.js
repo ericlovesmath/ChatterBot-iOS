@@ -97,7 +97,7 @@ function CalcInstance(instanceText) {
     console.log(instance);
     console.log(keys);
     if (keys.indexOf(instanceText) > -1) {
-      returnMessage = "We are talking about ".concat(instance, ", correct?");
+      returnMessage = "We are talking about \"".concat(instance, "\", correct?");
       //returnMessage = keys[Math.floor(Math.random() * keys.length)];
     }
   }

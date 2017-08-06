@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import { StyleSheet, Text, View, Button, Alert} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import SettingsList from 'react-native-settings-list';
 
@@ -11,6 +11,16 @@ class InformationScreen extends React.Component {
     super();
     this.onValueChange = this.onValueChange.bind(this);
     this.state = {switchValue: false};
+  }
+  handlePress() {
+    const { navigate } = this.props.navigation;
+    Alert.alert(
+      'This feature is not yet finished!',
+      'Look out for the next update!',
+      [{text: 'I\'ll be back!', onPress: () => navigate('Chat')}],
+      { cancelable: false }
+    )
+
   }
   render() {
     const { navigate } = this.props.navigation;
@@ -32,7 +42,7 @@ class InformationScreen extends React.Component {
           />
           <SettingsList.Item
             title='Add Public Instance'
-            onPress={() => navigate('Information')}
+            onPress={() => this.handlePress()}
           />
         </SettingsList>
       </View>
