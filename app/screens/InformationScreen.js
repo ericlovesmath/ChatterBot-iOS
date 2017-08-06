@@ -10,23 +10,49 @@ class InformationScreen extends React.Component {
   constructor(){
     super();
     this.onValueChange = this.onValueChange.bind(this);
-    this.state = {switchValue: false};
+    this.state = {switchValue: false, removeInstances: false};
   }
   handlePress() {
-    const { navigate } = this.props.navigation;
     Alert.alert(
       'This feature is not yet finished!',
       'Look out for the next update!',
-      [{text: 'I\'ll be back!', onPress: () => navigate('Chat')}],
+      [{text: 'I\'ll be back!'}],
       { cancelable: false }
     )
 
+  }
+  removeInstances() {
+    const { navigate } = this.props.navigation;
+    if (this.state.switchValue == true) {
+      Alert.alert(
+        'Are you sure you want a reset?',
+        'You cannot undo this action',
+        [
+          {text: 'I\'m ready', onPress: () => this.removeInstancesTrue(), style: 'cancel'},
+          {text: 'I\'m need more time'},
+        ],
+        { cancelable: false }
+      )
+    }
+  }
+  removeInstancesTrue() {
+    const { navigate } = this.props.navigation;
+    this.state.removeInstances = true;
+    navigate('Chat', {removeInstances: this.state.removeInstances})
   }
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={{backgroundColor:'#EFEFF4',flex:1}}>
         <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
+          <SettingsList.Item
+            title='Add Private Instance'
+            onPress={() => navigate('PrivateInstance')}
+          />
+          <SettingsList.Item
+            title='Add Public Instance'
+            onPress={() => this.handlePress()}
+          />
           <SettingsList.Header headerStyle={{marginTop:15}}/>
           <SettingsList.Item
             hasSwitch={true}
@@ -37,12 +63,9 @@ class InformationScreen extends React.Component {
             titleStyle={{color:'red'}}
           />
           <SettingsList.Item
-            title='Add Private Instance'
-            onPress={() => navigate('PrivateInstance')}
-          />
-          <SettingsList.Item
-            title='Add Public Instance'
-            onPress={() => this.handlePress()}
+            title='Remove all Instances'
+            titleStyle={{color:'red'}}
+            onPress={() => this.removeInstances()}
           />
         </SettingsList>
       </View>

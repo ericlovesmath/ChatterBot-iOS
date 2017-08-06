@@ -62,6 +62,14 @@ class ChatScreen extends React.Component {
     this.props.navigation.state.params :
     {inst: "Hello", key: ["Hello","Hi","Wassup","Hey"]}
     allInstances.push([inst, key])
+    console.log(allInstances)
+
+    const {removeInstances} = this.props.navigation.state.params ? 
+    this.props.navigation.state.params :
+    {removeInstances: false}
+    if (removeInstances==true){
+      allInstances=[["Hello",["Hello","Hi","Wassup","Hey"]]];
+    }
     return (
       <GiftedChat
         messages={this.state.messages}
@@ -90,12 +98,16 @@ function MessageObj(message, id) {
 
 function CalcInstance(instanceText) {
   let returnMessage = null;
+  for(var i = allInstances.length - 1; i >= 0; i--) {
+    if(allInstances[i] === [undefined,undefined,]) {
+       allInstances.splice(i, 1);
+    }
+  }
   for (let i = 0; i < allInstances.length; i++) {
     let items = allInstances[i];
     let instance = items[0];
     let keys = items[1];
-    console.log(instance);
-    console.log(keys);
+    //console.log(keys);
     if (keys.indexOf(instanceText) > -1) {
       returnMessage = "We are talking about \"".concat(instance, "\", correct?");
       //returnMessage = keys[Math.floor(Math.random() * keys.length)];
