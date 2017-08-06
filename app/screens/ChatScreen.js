@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { StackNavigator } from 'react-navigation';
-
+let allInstances = [];
 class ChatScreen extends React.Component {
   constructor() {
     super();
@@ -43,15 +43,9 @@ class ChatScreen extends React.Component {
     const response = this.state.messages[0];
     const {text} = response;
     const messages = this.state.messages.slice();
-////////////////////////////////////////////////////////////////////////////////////////////////
+
     messages.unshift(MessageObj(CalcInstance(text), ++this.id));
-    //if ((text=="Hi") || (text=="Hello")) {
-    //  messages.unshift(MessageObj("Hello!", ++this.id));
-    //}
-    //else {
-      //messages.unshift(MessageObj("I'm sorry, I couldn't understand the message", ++this.id));
-    //}
-////////////////////////////////////////////////////////////////////////////////////////////////
+
     this.setState({messages});
   }
   onSend(messages = []) {
@@ -64,6 +58,10 @@ class ChatScreen extends React.Component {
   
   render() {
     const { navigate } = this.props.navigation;
+    const {inst, key} = this.props.navigation.state.params ? 
+    this.props.navigation.state.params :
+    {inst: "Hello", key: ["Hello","Hi","Wassup","Hey"]}
+    allInstances.push([inst, key])
     return (
       <GiftedChat
         messages={this.state.messages}
@@ -92,17 +90,15 @@ function MessageObj(message, id) {
 
 function CalcInstance(instanceText) {
   let returnMessage = null;
-  /////////////////////////////////////
-  let $Hello = ["Hello","Hi","Wassup","Hey"];
-  let allInstances = [$Hello];
-  /////////////////////////////////////
   for (let i = 0; i < allInstances.length; i++) {
-    let instance = allInstances[i];
+    let items = allInstances[i];
+    let instance = items[0];
+    let keys = items[1];
     console.log(instance);
-    console.log(instanceText);
-    if (instance.indexOf(instanceText) > -1) {
-      returnMessage = instance[Math.floor(Math.random() * instance.length)];
-      console.log("YA GOT IT");
+    console.log(keys);
+    if (keys.indexOf(instanceText) > -1) {
+      returnMessage = "We are talking about ".concat(instance, ", correct?");
+      //returnMessage = keys[Math.floor(Math.random() * keys.length)];
     }
   }
   if (returnMessage==null) {

@@ -8,14 +8,19 @@ class InformationScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Add Instance"
   })
+  constructor(){
+    super();
+    this.state = {inst: "", key: ""};
+  }
   handlePress() {
     const { navigate } = this.props.navigation;
     Alert.alert(
       'Submited Instance',
       'Go test if it works!',
-      [{text: 'Alright!', onPress: () => navigate('Chat')},],
+      [{text: 'Alright!', onPress: () => navigate('Chat', {inst: this.state.inst, key: this.state.key.split(" ")})},],
       { cancelable: false }
     )
+
   }
   render() {
     const { navigate } = this.props.navigation;
@@ -30,7 +35,8 @@ class InformationScreen extends React.Component {
           height = {35}
           autoGrow = {true}
           marginLeft = {15}
-          onChangeText={(text) => console.log(text)}
+          value = {this.state.inst}
+          onChangeText={(inst) => this.setState({inst})}
         />
         <Text style={styles.Description}>The instance is a general idea. It should be a single word with no spaces.</Text>
         <TextField
@@ -40,10 +46,12 @@ class InformationScreen extends React.Component {
           height = {35}
           autoGrow = {true}
           marginLeft = {15}
+          value = {this.state.key}
+          onChangeText={(key) => this.setState({key})}
         />
         <Text style={styles.Description}>Keywords are words that are based off of the Instance.{"\n"}
         For example, if the instance was "Baking", an example set of keywords would be "Cookie, Cake, Scone, Brownie, Doughnut".{"\n"}
-        Split each keyword with a comma. For maximum results, enter 5~10 keywords.{"\n"}
+        Split each keyword with a space. For maximum results, enter 5~10 keywords.{"\n"}
         </Text>
         <Button
           onPress={() => this.handlePress()}
