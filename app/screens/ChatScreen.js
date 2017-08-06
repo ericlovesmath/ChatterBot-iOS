@@ -1,12 +1,23 @@
 import React from 'react';
+import { StyleSheet, Text, View, Button} from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { StackNavigator } from 'react-navigation';
 
 class ChatScreen extends React.Component {
   constructor() {
     super();
     this.id = 1;
   }
-  static navigationOptions = {title: "ChatterBot"}
+  static navigationOptions = ({ navigation }) => ({
+    headerRight: <Button
+        title="ⓘ  "
+        onPress={() =>
+          navigation.navigate('Information')
+        }
+      />,
+    title: "ChatterBot"
+  })
+
   state = {
     messages: [],
   };
@@ -51,6 +62,7 @@ class ChatScreen extends React.Component {
   }
   
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <GiftedChat
         messages={this.state.messages}
