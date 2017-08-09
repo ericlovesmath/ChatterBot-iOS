@@ -97,24 +97,19 @@ function MessageObj(message, id) {
 }
 
 function CalcInstance(instanceText) {
-  let returnMessage = null;
-  for(var i = allInstances.length - 1; i >= 0; i--) {
-    if(allInstances[i] === [undefined,undefined,]) {
-       allInstances.splice(i, 1);
-    }
-  }
+  let returnMessage = "I\'m sorry, I couldn't understand the message.";
   for (let i = 0; i < allInstances.length; i++) {
     let items = allInstances[i];
     let instance = items[0];
     let keys = items[1];
     //console.log(keys);
-    if (keys.indexOf(instanceText) > -1) {
-      returnMessage = "We are talking about \"".concat(instance, "\", correct?");
-      //returnMessage = keys[Math.floor(Math.random() * keys.length)];
+    for (var key in keys) {
+      var findKeyword = instanceText.search(new RegExp(key, "i"))
+      if (findKeyword) {
+        returnMessage = "We are talking about \"".concat(instance, "\", correct?");
+      }
     }
-  }
-  if (returnMessage==null) {
-    returnMessage = "I\'m sorry, I couldn't understand the message."
+  
   }
   return returnMessage;
 }
