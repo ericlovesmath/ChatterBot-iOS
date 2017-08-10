@@ -43,9 +43,9 @@ class ChatScreen extends React.Component {
     const response = this.state.messages[0];
     const {text} = response;
     const messages = this.state.messages.slice();
-
+    console.log("Started");
     messages.unshift(MessageObj(CalcInstance(text), ++this.id));
-
+    console.log("ended");
     this.setState({messages});
   }
   onSend(messages = []) {
@@ -62,7 +62,6 @@ class ChatScreen extends React.Component {
     this.props.navigation.state.params :
     {inst: "Hello", key: ["Hello","Hi","Wassup","Hey"]}
     allInstances.push([inst, key])
-    console.log(allInstances)
 
     const {removeInstances} = this.props.navigation.state.params ? 
     this.props.navigation.state.params :
@@ -97,20 +96,23 @@ function MessageObj(message, id) {
 }
 
 function CalcInstance(instanceText) {
-  let returnMessage = "I\'m sorry, I couldn't understand the message.";
+  let returnMessage = null;
+  console.log(allInstances.length);
   for (let i = 0; i < allInstances.length; i++) {
     let items = allInstances[i];
     let instance = items[0];
     let keys = items[1];
-    //console.log(keys);
-    for (var key in keys) {
-      var findKeyword = instanceText.search(new RegExp(key, "i"))
-      if (findKeyword) {
+    for (var j = 0; j < keys; j++) {
+      let key = keys[j];
+      console.log(key);
+      if (instanceText.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         returnMessage = "We are talking about \"".concat(instance, "\", correct?");
       }
     }
-  
+  if (returnMessage==null) {
+    returnMessage = "I\'m sorry, I couldn't understand the message.";
   }
+}
   return returnMessage;
 }
 export default ChatScreen; 
