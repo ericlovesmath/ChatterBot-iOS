@@ -43,9 +43,7 @@ class ChatScreen extends React.Component {
     const response = this.state.messages[0];
     const { text } = response;
     const messages = this.state.messages.slice();
-    console.log("Started");
     messages.unshift(MessageObj(CalcInstance(text), ++this.id));
-    console.log("ended");
     this.setState({ messages });
   }
   onSend(messages = []) {
@@ -97,14 +95,12 @@ function MessageObj(message, id) {
 
 function CalcInstance(instanceText) {
   let returnMessage = null;
-  console.log(allInstances.length);
   for (let i = 0; i < allInstances.length; i++) {
     let items = allInstances[i];
     let instance = items[0];
     let keys = items[1];
-    for (var j = 0; j < keys; j++) {
+    for (var j = 0; j < keys.length; j++) {
       let key = keys[j];
-      console.log(key);
       if (instanceText.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         returnMessage = "We are talking about \"".concat(instance, "\", correct?");
       }
