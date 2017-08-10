@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { StackNavigator } from 'react-navigation';
 let allInstances = [];
@@ -11,11 +11,11 @@ class ChatScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: null,
     headerRight: <Button
-        title="ⓘ  "
-        onPress={() =>
-          navigation.navigate('Information')
-        }
-      />,
+      title="ⓘ  "
+      onPress={() =>
+        navigation.navigate('Information')
+      }
+    />,
     title: "ChatterBot"
   })
 
@@ -41,12 +41,12 @@ class ChatScreen extends React.Component {
 
   respond = () => {
     const response = this.state.messages[0];
-    const {text} = response;
+    const { text } = response;
     const messages = this.state.messages.slice();
     console.log("Started");
     messages.unshift(MessageObj(CalcInstance(text), ++this.id));
     console.log("ended");
-    this.setState({messages});
+    this.setState({ messages });
   }
   onSend(messages = []) {
     this.setState((previousState) => ({
@@ -55,19 +55,19 @@ class ChatScreen extends React.Component {
       this.respond();
     });
   }
-  
+
   render() {
     const { navigate } = this.props.navigation;
-    const {inst, key} = this.props.navigation.state.params ? 
-    this.props.navigation.state.params :
-    {inst: "Hello", key: ["Hello","Hi","Wassup","Hey"]}
+    const { inst, key } = this.props.navigation.state.params ?
+      this.props.navigation.state.params :
+      { inst: "Hello", key: ["Hello", "Hi", "Wassup", "Hey"] }
     allInstances.push([inst, key])
 
-    const {removeInstances} = this.props.navigation.state.params ? 
-    this.props.navigation.state.params :
-    {removeInstances: false}
-    if (removeInstances==true){
-      allInstances=[["Hello",["Hello","Hi","Wassup","Hey"]]];
+    const { removeInstances } = this.props.navigation.state.params ?
+      this.props.navigation.state.params :
+      { removeInstances: false }
+    if (removeInstances == true) {
+      allInstances = [["Hello", ["Hello", "Hi", "Wassup", "Hey"]]];
     }
     return (
       <GiftedChat
@@ -79,19 +79,19 @@ class ChatScreen extends React.Component {
       />
     );
   }
- 
+
 }
 
 function MessageObj(message, id) {
   return {
-        _id: id,
-        text: message,
-        createdAt: new Date(),
-        user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
-        },
+    _id: id,
+    text: message,
+    createdAt: new Date(),
+    user: {
+      _id: 2,
+      name: 'React Native',
+      avatar: 'https://facebook.github.io/react/img/logo_og.png',
+    },
   };
 }
 
@@ -109,10 +109,10 @@ function CalcInstance(instanceText) {
         returnMessage = "We are talking about \"".concat(instance, "\", correct?");
       }
     }
-  if (returnMessage==null) {
-    returnMessage = "I\'m sorry, I couldn't understand the message.";
+    if (returnMessage == null) {
+      returnMessage = "I\'m sorry, I couldn't understand the message.";
+    }
   }
-}
   return returnMessage;
 }
 export default ChatScreen; 
