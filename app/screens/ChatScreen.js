@@ -94,6 +94,7 @@ function MessageObj(message, id) {
 }
 
 function CalcInstance(instanceText) {
+  let cutInstanceText = instanceText.split(" ");
   let returnMessage = null;
   for (let i = 0; i < allInstances.length; i++) {
     let items = allInstances[i];
@@ -101,8 +102,11 @@ function CalcInstance(instanceText) {
     let keys = items[1];
     for (var j = 0; j < keys.length; j++) {
       let key = keys[j];
-      if (instanceText.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
-        returnMessage = "We are talking about \"".concat(instance, "\", correct?");
+      for (var k = 0; k < cutInstanceText.length; k++) {
+        let instanceWord = cutInstanceText[k];
+        if (instanceWord.toLowerCase() === key.toLowerCase()) {
+          returnMessage = "We are talking about \"".concat(instance, "\", correct?");
+        }
       }
     }
     if (returnMessage == null) {
