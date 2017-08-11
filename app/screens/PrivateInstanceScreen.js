@@ -12,7 +12,7 @@ class InformationScreen extends React.Component {
     super();
     this.state = {inst: "", key: ""};
   }
-  handlePress() {
+  submittedAlert = () => {
     Alert.alert(
       'Submited Instance',
       'Go test if it works!',
@@ -23,7 +23,7 @@ class InformationScreen extends React.Component {
   }
   handlePress = () => {
     const { goBack, state } = this.props.navigation;
-    this.props.navigation.state.params.changeInst(this.state.inst, this.state.key);
+    this.props.navigation.state.params.changeInst(this.state.inst, this.state.key.split(" "));
     goBack(this.props.navigation.state.params.screenKey )
 
   }
@@ -59,7 +59,7 @@ class InformationScreen extends React.Component {
         Split each keyword with a space. For maximum results, enter 5~10 keywords.{"\n"}
         </Text>
         <Button
-          onPress={() => this.handlePress()}
+          onPress={this.submittedAlert}
           title="Submit new Instance"
         />
       </ScrollView>
