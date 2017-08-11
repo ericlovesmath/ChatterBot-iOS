@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { StackNavigator } from 'react-navigation';
+
 let allInstances = [];
 class ChatScreen extends React.Component {
   constructor() {
@@ -94,6 +95,7 @@ function MessageObj(message, id) {
 }
 
 function CalcInstance(instanceText) {
+  var levenshtein = require('fast-levenshtein');
   let cutInstanceText = instanceText.split(" ");
   let returnMessage = null;
   for (let i = 0; i < allInstances.length; i++) {
@@ -104,7 +106,8 @@ function CalcInstance(instanceText) {
       let key = keys[j];
       for (var k = 0; k < cutInstanceText.length; k++) {
         let instanceWord = cutInstanceText[k];
-        if (instanceWord.toLowerCase() === key.toLowerCase()) {
+        var distance = levenshtein.get('back', 'book');
+        if (levenshtein.get(instanceWord.toLowerCase(), key.toLowerCase()) <= (key.length)/2 ) {
           returnMessage = "We are talking about \"".concat(instance, "\", correct?");
         }
       }
