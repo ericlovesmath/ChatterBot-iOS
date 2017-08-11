@@ -13,13 +13,18 @@ class InformationScreen extends React.Component {
     this.state = {inst: "", key: ""};
   }
   handlePress() {
-    const { navigate } = this.props.navigation;
     Alert.alert(
       'Submited Instance',
       'Go test if it works!',
-      [{text: 'Alright!', onPress: () => navigate('Chat', {inst: this.state.inst, key: this.state.key.split(" ")})},],
+      [{text: 'Alright!', onPress: this.handlePress },],
       { cancelable: false }
-    )
+    ) //{inst: this.state.inst, key: this.state.key.split(" ")}
+
+  }
+  handlePress = () => {
+    const { goBack, state } = this.props.navigation;
+    this.props.navigation.state.params.changeInst(this.state.inst, this.state.key);
+    goBack(this.props.navigation.state.params.screenKey )
 
   }
   render() {

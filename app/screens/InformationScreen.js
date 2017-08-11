@@ -47,7 +47,7 @@ class InformationScreen extends React.Component {
         <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
           <SettingsList.Item
             title='Add Private Instance'
-            onPress={() => navigate('PrivateInstance')}
+            onPress={() => navigate('PrivateInstance', {screenKey: this.props.navigation.state.key, changeInst: this.props.navigation.state.params.changeInst} )}
           />
           <SettingsList.Item
             title='Add Public Instance'
@@ -74,7 +74,6 @@ class InformationScreen extends React.Component {
   onValueChange(value){
     this.setState({switchValue: value});
   }
-
 }
 
 

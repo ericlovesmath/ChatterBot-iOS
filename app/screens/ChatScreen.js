@@ -8,21 +8,28 @@ class ChatScreen extends React.Component {
   constructor() {
     super();
     this.id = 1;
+    this.state = {
+      messages: [],
+      inst: null,
+      key: null,
+    };
   }
   static navigationOptions = ({ navigation }) => ({
     headerLeft: null,
     headerRight: <Button
       title="ⓘ  "
       onPress={() =>
-        navigation.navigate('Information')
+        navigation.navigate('Information', {changeInst: this.changeInst})
       }
     />,
     title: "ChatterBot"
   })
 
-  state = {
-    messages: [],
-  };
+  changeInst = (inst, key) => {
+    this.setState({inst, key});
+    
+  }
+
   componentWillMount() {
     this.setState({
       messages: [
@@ -106,7 +113,6 @@ function CalcInstance(instanceText) {
       let key = keys[j];
       for (var k = 0; k < cutInstanceText.length; k++) {
         let instanceWord = cutInstanceText[k];
-        var distance = levenshtein.get('back', 'book');
         if (levenshtein.get(instanceWord.toLowerCase(), key.toLowerCase()) <= (key.length)/2 ) {
           returnMessage = "We are talking about \"".concat(instance, "\", correct?");
         }
