@@ -62,7 +62,7 @@ class ChatScreen extends React.Component {
     const response = this.state.messages[0];
     const { text } = response;
     const messages = this.state.messages.slice();
-    messages.unshift(MessageObj(CalcInstance(text), ++this.id));
+    messages.unshift(MessageObj(CalcInstance2(text), ++this.id)); /////////////////////////Change CalcInstance2 to 1
     this.setState({ messages });
   }
 
@@ -81,8 +81,8 @@ class ChatScreen extends React.Component {
       { inst: "Hello", key: ["Hello", "Hi", "Wassup", "Hey"] }
     
     allInstances.push([inst,key]);
-    console.log(inst);
-    console.log(key);
+    //console.log(inst);
+    //console.log(key);
     const { removeInstances } = this.props.navigation.state.params ?
       this.props.navigation.state.params :
       { removeInstances: false }
@@ -136,5 +136,31 @@ function CalcInstance(instanceText) {
     }
   }
   return returnMessage;
+}
+function CalcInstance2(instanceText) {
+  var asciiKeys = [];
+  for (var i = 0; i < instanceText.length; i ++) {
+    asciiKeys.push(instanceText[i].charCodeAt(0));
+  }
+  let output = ConvertBinary(instanceText);
+  console.log(output.replace(/\d+./g,x=>String.fromCharCode('0b'+x)));
+  return (output + "\n" + instanceText);
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+function ConvertBinary(string) {
+  return string.split('').map(function (char) {
+      return char.charCodeAt(0).toString(2);
+  }).join(' ');
 }
 export default ChatScreen; 

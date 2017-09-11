@@ -18,7 +18,7 @@ class InformationScreen extends React.Component {
       'Go test if it works!',
       [{text: 'Alright!', onPress: this.handlePress },],
       { cancelable: false }
-    ) //{inst: this.state.inst, key: this.state.key.split(" ")}
+    )
 
   }
   handlePress = () => {
@@ -63,7 +63,7 @@ class InformationScreen extends React.Component {
           title="Submit new Instance"
         />
       </ScrollView>
-    );
+    )
   }
 
 }
