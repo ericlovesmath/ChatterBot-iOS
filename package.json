@@ -23,7 +23,7 @@
     "brain.js": "^1.0.0-rc.3",
     "expo": "^18.0.3",
     "fast-levenshtein": "^2.0.6",
-    "mongoose": "^4.11.3",
+    "mongoose": "^4.13.21",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.45.1",
     "react-native-button": "^2.1.0",
